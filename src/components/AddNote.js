@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import notecontext from "./context/notes/noteContext";
+import notecontext from "../context/noteContext";
 // import { Link } from 'react-router-dom';
 
 const AddNote = () => {
@@ -32,7 +32,7 @@ const AddNote = () => {
   };
   return (
     <div className="container mx-auto mt-5 p-5 bg-gray-100 rounded-lg">
-      <h1 className="text-2xl font-bold mb-3">Create a New Post</h1>
+      <h1 className="text-2xl font-bold mb-3">Create a New Note</h1>
       <form>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2">

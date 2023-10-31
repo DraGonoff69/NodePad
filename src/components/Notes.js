@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import notecontext from "./context/notes/noteContext";
+import notecontext from "../context/noteContext";
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 const Notes = () => {
@@ -116,8 +116,8 @@ const Notes = () => {
 
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Your notes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
+        <div className=" container grid grid-cols-1 md:grid-cols-3 gap-4">
+        {notes.length===0 && 'No Notes to display'}
           {notes.map((note) => {
             return <NoteItem key={note._id} updateNote={updateNote} note={note} />
           })}

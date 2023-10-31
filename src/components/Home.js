@@ -1,14 +1,7 @@
-// src/components/CreatePost.js
 import React from 'react';
-
-
 import Notes from './Notes';
 
-const CreatePost = () => {
-
-  // const history = useHistory();
-  
-
+const Home = () => {
   return (
     <div>
       <Notes/>
@@ -16,4 +9,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default Home;

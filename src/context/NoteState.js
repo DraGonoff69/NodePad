@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NoteContext from "./noteContext";
+import NoteContext from "../context/noteContext";
 
 const NoteState = (props) => {
   const host = "http://localhost:5000";
@@ -16,7 +16,7 @@ const NoteState = (props) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyY2Y4YTAyNjU0YTUwOTdkZTVkMzljIn0sImlhdCI6MTY5NzQ0NjA0OH0.9mhgPPWNcBJ9O3uGFOO4Yt6xZqA_QNTze0VTGR1RUXs" // Replace with your actual token
+          "auth-token": localStorage.getItem('token') // Replace with your actual token
         }
       });
       const json = await response.json();
@@ -33,7 +33,7 @@ const NoteState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyY2Y4YTAyNjU0YTUwOTdkZTVkMzljIn0sImlhdCI6MTY5NzQ0NjA0OH0.9mhgPPWNcBJ9O3uGFOO4Yt6xZqA_QNTze0VTGR1RUXs" // Replace with your actual token
+          "auth-token": localStorage.getItem('token') // Replace with your actual token
         },
         body: JSON.stringify({ title, description, tag }),
       });
@@ -62,7 +62,7 @@ const NoteState = (props) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyY2Y4YTAyNjU0YTUwOTdkZTVkMzljIn0sImlhdCI6MTY5NzQ0NjA0OH0.9mhgPPWNcBJ9O3uGFOO4Yt6xZqA_QNTze0VTGR1RUXs" // Replace with your actual token
+          "auth-token": localStorage.getItem('token') // Replace with your actual token
         }
       });
       const json = await response.json();
@@ -86,7 +86,7 @@ const NoteState = (props) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyY2Y4YTAyNjU0YTUwOTdkZTVkMzljIn0sImlhdCI6MTY5NzQ0NjA0OH0.9mhgPPWNcBJ9O3uGFOO4Yt6xZqA_QNTze0VTGR1RUXs" // Replace with your actual token
+          "auth-token": localStorage.getItem('token') // Replace with your actual token
         },
         body: JSON.stringify({ title, description, tag }),
       });
