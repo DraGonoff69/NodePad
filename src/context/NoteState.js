@@ -3,20 +3,19 @@ import NoteContext from "../context/noteContext";
 
 const NoteState = (props) => {
   const host = "http://localhost:5000";
-  const [notes, setNotes] = useState([]); // Changed initial state to an empty array
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    getNotes(); // Fetch notes when component mounts
+    fetchNotes();
   }, []);
 
-  // Get all notes
-  const getNotes = async () => {
+  const fetchNotes = async () => {
     try {
       const response = await fetch(`${host}/api/notes/fetchallnotes`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": localStorage.getItem('token') // Replace with your actual token
+          "auth-token": localStorage.getItem('token')
         }
       });
       const json = await response.json();
@@ -26,14 +25,13 @@ const NoteState = (props) => {
     }
   }
 
-  // Add a note
   const addNote = async (title, description, tag) => {
     try {
       const response = await fetch(`${host}/api/notes/addnote`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": localStorage.getItem('token') // Replace with your actual token
+          "auth-token": localStorage.getItem('token')
         },
         body: JSON.stringify({ title, description, tag }),
       });
@@ -49,29 +47,27 @@ const NoteState = (props) => {
         "date": data.date,
         "__v": 0
       }
-      setNotes([...notes, newNote]);
+      setNotes([...notes, newNote]); // Make sure to use the updated state
     } catch (error) {
       console.error('Error adding note:', error);
     }
   }
 
-  // Delete a note
   const deleteNote = async (id) => {
     try {
       const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": localStorage.getItem('token') // Replace with your actual token
+          "auth-token": localStorage.getItem('token')
         }
       });
-      const json = await response.json();
 
       if (response.ok) {
-        console.log(json);
         const updatedNotes = notes.filter(note => note._id !== id);
         setNotes(updatedNotes);
       } else {
+        const json = await response.json();
         console.error('Error deleting note:', json);
       }
     } catch (error) {
@@ -79,35 +75,36 @@ const NoteState = (props) => {
     }
   }
 
-  // Edit a note
   const editNote = async (id, title, description, tag) => {
     try {
       const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": localStorage.getItem('token') // Replace with your actual token
+          "auth-token": localStorage.getItem('token')
         },
         body: JSON.stringify({ title, description, tag }),
       });
-      const data = await response.json();
-      console.log('Note updated:', data);
 
-      const updatedNotes = notes.map(note => (
-        note._id === id ? { ...note, title, description, tag } : note
-      ));
-      setNotes(updatedNotes);
+      if (response.ok) {
+        const updatedNotes = notes.map(note => (
+          note._id === id ? { ...note, title, description, tag } : note
+        ));
+        setNotes(updatedNotes);
+      } else {
+        const errorData = await response.json();
+        console.error('Error editing note:', errorData);
+      }
     } catch (error) {
       console.error('Error editing note:', error);
     }
   }
 
   return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
+    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes: fetchNotes }}>
       {props.children}
     </NoteContext.Provider>
   )
 }
 
 export default NoteState;
-

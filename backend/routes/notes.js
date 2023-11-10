@@ -15,8 +15,9 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
     }
 });
 
+
 // Route to add a note
-router.post('/addnote', fetchuser, [
+router.post('/addnote', fetchuser,[
     body('title', 'Enter the title').isLength({ min: 3 }),
     body('description', 'Enter description of the project').isLength({ min: 5 }),
 ], async (req, res) => {
